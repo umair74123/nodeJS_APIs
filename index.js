@@ -6,12 +6,19 @@ const MySqlPool = require('./config/database');
 const { productlist } = require('./controllers/readProducts');
 const fs = require('fs');
 const path = require('path');
+const multer = require("multer");
+const errHandler = require('./errorHandler/errHandler');
+
+
+
+
 
 //configure dotenv
 dotenv.config();
 var app = express();
 //middleware
 app.use(morgan("dev"));
+app.use(errHandler);
 app.use(express.json());
 app.use(express.urlencoded( {extended : true}))
 
@@ -22,9 +29,11 @@ app.use('/api/v1/product' , require('./routes/productroutes')); //url for gettin
 //port on which server is running
 const  PORT =process.env.PORT || 3000;
 
+
 //checking database connectivity
 MySqlPool.query("SELECT 1")
 .then(()=>{
+    
     console.log(`Database connected successfully`);
     app.listen(PORT,()=>{
         console.log(`app is listning at PORT ${process.env.PORT}`.bgCyan.white);
@@ -33,6 +42,10 @@ MySqlPool.query("SELECT 1")
 }).catch(err=>{
     console.log(err);
 })
+
+
+
+app.use('/profile',express.static('upload/images'));
 
 
 //ROUTES

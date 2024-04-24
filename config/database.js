@@ -7,6 +7,14 @@ const MySqlPool = mysql.createPool({
     connectionLimit:10
 })
 
+// const MySqlPool = mysql.createPool({
+//     host:"sql6.freesqldatabase.com",
+//     user:"sql6700389",
+//     password:"KGG2h1IiKm", 
+//     database :"sql6700389",
+//     port:3306,
+//     connectionLimit:10
+// })
 
 // pool.query('select * from nodejsapis' ,(err,result,feild)=>{
 //     if(err)

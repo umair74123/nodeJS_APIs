@@ -6,7 +6,8 @@ const db = require("../config/database");
 const productlist = async (req,res)=>{
     try{
         const query = `select * from nodejsapis`;
-       const data = await  db.query(query)
+       const data = await  db.pool.query(query );
+        
             if(!data[0] || data[0].length ===0)
             {
                 return res.status(404).send({
@@ -30,7 +31,7 @@ const productlist = async (req,res)=>{
         res.status(500).send({
             success:false,
             "message" : "error in getting productlist",
-            error
+            error: error
             
         })
     }
